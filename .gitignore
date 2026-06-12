@@ -5,7 +5,7 @@ __pycache__/
 build/
 dist/
 
-# ---- envs (this pack reuses the donor pixi env; never commit one) ----
+# ---- envs (this pack reuses the ComfyUI-SAM3DObjects pixi env; never commit one) ----
 .venv/
 venv/
 .pixi/

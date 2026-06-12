@@ -65,7 +65,7 @@ def _candidate_workspaces():
     if root:
         yield Path(root)
     # comfy-env knows its own workspace; it is importable in the ComfyUI host
-    # python whenever the donor (ComfyUI-SAM3DObjects) is installed.
+    # python whenever ComfyUI-SAM3DObjects is installed.
     try:
         import comfy_env  # type: ignore
 

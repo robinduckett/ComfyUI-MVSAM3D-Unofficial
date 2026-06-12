@@ -4,7 +4,7 @@ These run in ComfyUI's own python and orchestrate a subprocess into the prebuilt
 ``sam3dobjects-nodes`` pixi env (worker/mvsam3d_worker.py). Rationale: comfy-aimdo
 keys its isolated env on the *plugin directory name*, so giving this pack its own
 comfy-env.toml would build a fresh multi-GB env (recompiling the CUDA extensions)
-instead of reusing the donor's validated stack. Shelling into the existing env
+instead of reusing the stack ComfyUI-SAM3DObjects already built. Shelling into the existing env
 keeps ComfyUI's torch untouched. In-memory IMAGE/MASK is marshaled via a scene dir.
 
 The fusion math is the upstream authors' code, unmodified, taken from the pinned
