@@ -93,16 +93,23 @@ def test_resolve_repo_root_accepts_valid_checkout(tmp_path):
     assert discovery.resolve_repo_root(str(tmp_path)) == str(tmp_path)
 
 
-def test_resolve_pipeline_yaml_from_models_dir(tmp_path):
-    yaml = tmp_path / "sam3dobjects" / "pipeline.yaml"
+def test_resolve_pipeline_yaml_from_candidate_dirs(tmp_path):
+    yaml = tmp_path / "rootB" / "sam3dobjects" / "pipeline.yaml"
     yaml.parent.mkdir(parents=True)
     yaml.touch()
-    assert discovery.resolve_pipeline_yaml("", models_dir=str(tmp_path)) == str(yaml)
+    found = discovery.resolve_pipeline_yaml("", candidate_dirs=[
+        str(tmp_path / "rootA" / "sam3dobjects"),   # doesn't exist -> skipped
+        str(yaml.parent),
+    ])
+    assert found == str(yaml)
 
 
-def test_resolve_pipeline_yaml_missing(tmp_path):
-    with pytest.raises(FileNotFoundError):
-        discovery.resolve_pipeline_yaml("", models_dir=str(tmp_path))
+def test_resolve_pipeline_yaml_missing_lists_all_tried(tmp_path):
+    with pytest.raises(FileNotFoundError) as ei:
+        discovery.resolve_pipeline_yaml("", candidate_dirs=[
+            str(tmp_path / "a"), str(tmp_path / "b")])
+    msg = str(ei.value)
+    assert "a" in msg and "b" in msg
 
 
 # ---------------------------------------------------------------- nodes.py helpers

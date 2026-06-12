@@ -40,6 +40,41 @@ def _to_uint8(t):
     return (a * 255.0 + 0.5).astype(np.uint8)
 
 
+def _sam3d_model_dirs():
+    """Candidate sam3dobjects model dirs across EVERY root this instance knows.
+
+    ComfyUI-SAM3DObjects downloads into the PRIMARY models_dir, so that comes
+    first. A multi-root setup (extra_model_paths.yaml, --extra-model-paths-config,
+    ComfyUI Desktop shared models) can also keep the weights elsewhere, so then
+    probe the registered 'sam3dobjects' folder name and <root>/sam3dobjects for
+    every distinct registered model root.
+    """
+    import folder_paths
+
+    dirs = [os.path.join(folder_paths.models_dir, "sam3dobjects")]
+    try:
+        if "sam3dobjects" in folder_paths.folder_names_and_paths:
+            dirs.extend(folder_paths.get_folder_paths("sam3dobjects"))
+    except Exception:
+        pass
+    try:
+        roots = set()
+        for _name, entry in folder_paths.folder_names_and_paths.items():
+            paths = entry[0] if isinstance(entry, (tuple, list)) and entry else []
+            for p in paths:
+                roots.add(os.path.dirname(os.path.normpath(str(p))))
+        dirs.extend(os.path.join(r, "sam3dobjects") for r in sorted(roots) if r)
+    except Exception:
+        pass
+    out, seen = [], set()
+    for d in dirs:
+        key = os.path.normcase(os.path.normpath(d))
+        if key not in seen:
+            seen.add(key)
+            out.append(d)
+    return out
+
+
 def _mask_to_rgba(mask_u8: np.ndarray) -> Image.Image:
     """Official loader reads masks from the ALPHA channel of an RGBA file
     (load_images_and_masks.py:load_mask_from_rgba); a grayscale PNG would be
@@ -253,7 +288,7 @@ class MVSAM3DRunMultiView:
         pixi_py = resolve_pixi_python(kw.get("pixi_python", ""))
         repo_root = resolve_repo_root(kw.get("repo_root", ""))
         pipeline_yaml = resolve_pipeline_yaml(
-            kw.get("pipeline_yaml", ""), models_dir=folder_paths.models_dir)
+            kw.get("pipeline_yaml", ""), candidate_dirs=_sam3d_model_dirs())
         if not os.path.isfile(WORKER):
             raise FileNotFoundError(f"worker script missing: {WORKER}")
         da3 = (kw.get("da3_npz") or "").strip()

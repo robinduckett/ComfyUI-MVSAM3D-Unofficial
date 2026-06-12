@@ -157,8 +157,13 @@ def resolve_repo_root(override: str = "") -> str:
     raise AssertionError("unreachable")
 
 
-def resolve_pipeline_yaml(override: str = "", models_dir: str = "") -> str:
-    """Locate the SAM 3D Objects ``pipeline.yaml`` (ships with the model weights)."""
+def resolve_pipeline_yaml(override: str = "", candidate_dirs=()) -> str:
+    """Locate the SAM 3D Objects ``pipeline.yaml`` (ships with the model weights).
+
+    ``candidate_dirs`` are directories that may BE the sam3dobjects models dir
+    (the caller gathers them from folder_paths, covering every registered model
+    root — extra_model_paths configs included — not just the primary models dir).
+    """
     tried = []
     for source, value in (
         ("node input 'pipeline_yaml'", (override or "").strip()),
@@ -171,17 +176,22 @@ def resolve_pipeline_yaml(override: str = "", models_dir: str = "") -> str:
                 )
             return value
 
-    if models_dir:
-        cand = Path(models_dir) / "sam3dobjects" / "pipeline.yaml"
+    for d in candidate_dirs:
+        cand = Path(d) / "pipeline.yaml"
         tried.append(str(cand))
         if cand.is_file():
             return str(cand)
 
     raise FileNotFoundError(
         "Could not find the SAM 3D Objects pipeline.yaml.\n"
-        f"Tried: {tried}\n"
+        "Searched every model root this ComfyUI instance knows about:\n  "
+        + "\n  ".join(tried or ["(none)"]) + "\n"
         "It is downloaded together with the model weights by ComfyUI-SAM3DObjects "
-        "into <ComfyUI>/models/sam3dobjects/. Run that pack once so the weights "
-        "exist, or set the node's 'pipeline_yaml' input or the "
-        f"{ENV_PIPELINE_YAML} environment variable. See README 'Install'."
+        "into <models>/sam3dobjects/. If that pack has never produced a mesh on "
+        "THIS ComfyUI instance, run it once so the weights download. If the "
+        "weights live in another install's tree, point this instance at them: "
+        "set the node's 'pipeline_yaml' input or the "
+        f"{ENV_PIPELINE_YAML} environment variable to the yaml's full path "
+        "(or junction/symlink that sam3dobjects folder into a models dir listed "
+        "above). See README 'Troubleshooting'."
     )
