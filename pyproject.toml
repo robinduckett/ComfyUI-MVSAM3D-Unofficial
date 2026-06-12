@@ -2,7 +2,7 @@
 # Registry node id — immutable after first publish; registry forbids 'ComfyUI' in it.
 name = "mvsam3d-unofficial"
 description = "Multi-view SAM 3D Objects via MV-SAM3D (arXiv:2603.11633). REQUIRES ComfyUI-SAM3DObjects installed and run once first — this pack reuses its environment and weights. Runs the authors' code unmodified from a pinned checkout; one-time 'python scripts/setup_env.py' after install."
-version = "0.1.0"
+version = "0.1.1"
 license = { file = "LICENSE" }
 requires-python = ">=3.10"
 # Host-process deps only; the heavy stack lives in the reused pixi env.
