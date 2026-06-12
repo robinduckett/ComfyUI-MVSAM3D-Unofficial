@@ -42,13 +42,14 @@ def build(filenames, prefix="custom4"):
         "Per view: RealESRGAN x4 on the image; the foreground mask comes from the "
         "image's alpha channel (InvertMask because LoadImage's MASK output is "
         "inverted alpha) and is scaled x4 to match. No alpha? Feed masks from your "
-        "segmentation pack into the mask chain instead.\n\n"
+        "segmentation pack into Batch Masks instead.\n\n"
         "No depth-estimate step is needed: the MV-SAM3D pipeline computes pointmaps "
         "itself (MoGe).\n\n"
         "weight_source=entropy is the paper method. 'visibility'/'mixed' need a "
         "Depth-Anything-3 npz on da3_npz.\n\n"
-        "View order = batch order; put your reference/front view first. Images of "
-        "different sizes are auto-resized to the first view's size by Image Batch."
+        "View order = batch order; put your reference/front view first. More views: "
+        "Batch Images / Batch Masks grow extra inputs as you connect them. Images "
+        "of different sizes are auto-resized to the first view's size."
     )
     node(90, "Note", [-1560, -700], [460, 240], [], [], [note],
          props={}, color="#432", bgcolor="#653")
@@ -58,10 +59,11 @@ def build(filenames, prefix="custom4"):
          [{"name": "UPSCALE_MODEL", "type": "UPSCALE_MODEL", "links": []}],
          ["RealESRGAN_x4plus.pth"])
 
-    img_out, maskimg_out = [], []  # (node_id, slot) per view
+    img_out, mask_out = [], []  # (node_id, slot) per view
     y = -300
     for i, fname in enumerate(filenames):
-        li, ui, mi, ti, si = 100 + i * 10, 101 + i * 10, 102 + i * 10, 103 + i * 10, 104 + i * 10
+        li, ui, mi = 100 + i * 10, 101 + i * 10, 102 + i * 10
+        ti, si, ki = 103 + i * 10, 104 + i * 10, 105 + i * 10
         node(li, "LoadImage", [-1560, y], [274, 314],
              [],
              [{"name": "IMAGE", "type": "IMAGE", "links": []},
@@ -85,37 +87,32 @@ def build(filenames, prefix="custom4"):
              [{"name": "image", "type": "IMAGE", "link": link(ti, 0, si, 0, "IMAGE")}],
              [{"name": "IMAGE", "type": "IMAGE", "links": []}],
              ["bilinear", 4.0])
+        node(ki, "ImageToMask", [-980, y + 200], [220, 60],
+             [{"name": "image", "type": "IMAGE", "link": link(si, 0, ki, 0, "IMAGE")}],
+             [{"name": "MASK", "type": "MASK", "links": []}],
+             ["red"])
         img_out.append((ui, 0))
-        maskimg_out.append((si, 0))
+        mask_out.append((ki, 0))
         y += 340
 
-    def chain_batches(sources, base_id, x):
-        prev = sources[0]
-        for k in range(1, len(sources)):
-            bid = base_id + k
-            node(bid, "ImageBatch", [x, -260 + k * 110], [210, 46],
-                 [{"name": "image1", "type": "IMAGE",
-                   "link": link(prev[0], prev[1], bid, 0, "IMAGE")},
-                  {"name": "image2", "type": "IMAGE",
-                   "link": link(sources[k][0], sources[k][1], bid, 1, "IMAGE")}],
-                 [{"name": "IMAGE", "type": "IMAGE", "links": []}],
-                 [])
-            prev = (bid, 0)
-        return prev
-
-    img_batch = chain_batches(img_out, 200, -940)
-    mask_batch_img = chain_batches(maskimg_out, 210, -940)
-
-    node(220, "ImageToMask", [-700, 160], [240, 60],
-         [{"name": "image", "type": "IMAGE",
-           "link": link(mask_batch_img[0], mask_batch_img[1], 220, 0, "IMAGE")}],
+    # Modern variadic batch nodes (ImageBatch / chained pairs are deprecated).
+    node(200, "BatchImagesNode", [-940, -260], [220, 26 + 26 * len(img_out)],
+         [{"name": f"image{k + 1}", "type": "IMAGE",
+           "link": link(src[0], src[1], 200, k, "IMAGE")}
+          for k, src in enumerate(img_out)],
+         [{"name": "IMAGE", "type": "IMAGE", "links": []}],
+         [])
+    node(210, "BatchMasksNode", [-940, 40], [220, 26 + 26 * len(mask_out)],
+         [{"name": f"mask{k + 1}", "type": "MASK",
+           "link": link(src[0], src[1], 210, k, "MASK")}
+          for k, src in enumerate(mask_out)],
          [{"name": "MASK", "type": "MASK", "links": []}],
-         ["red"])
+         [])
 
     node(300, "MVSAM3DLoadViews", [-700, -160], [300, 130],
          [{"name": "images", "type": "IMAGE",
-           "link": link(img_batch[0], img_batch[1], 300, 0, "IMAGE")},
-          {"name": "masks", "type": "MASK", "link": link(220, 0, 300, 1, "MASK")}],
+           "link": link(200, 0, 300, 0, "IMAGE")},
+          {"name": "masks", "type": "MASK", "link": link(210, 0, 300, 1, "MASK")}],
          [{"name": "scene", "type": "MVSAM3D_SCENE", "links": []}],
          [prefix, prefix], props=ours("MVSAM3DLoadViews"))
 
