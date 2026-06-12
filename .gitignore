@@ -34,3 +34,6 @@ desktop.ini
 # ---- logs / scratch ----
 *.log
 tmp/
+
+# local smoke-test artifacts
+.smoke-run/

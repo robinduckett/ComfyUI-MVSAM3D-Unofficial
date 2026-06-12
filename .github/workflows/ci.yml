@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  glue-tests:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.10", "3.12"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+        # Submodule deliberately NOT checked out: the glue tests must pass
+        # without it (and not fetching it keeps SAM-License code out of CI).
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install pytest numpy pillow
+      - run: python -m pytest tests/ -v
+      - name: compile-check all shipped python
+        run: python -m py_compile discovery.py nodes.py __init__.py worker/mvsam3d_worker.py worker/mvsam3d_offload.py scripts/setup_env.py
