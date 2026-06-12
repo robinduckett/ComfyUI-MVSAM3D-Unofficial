@@ -56,7 +56,7 @@ def build(filenames, prefix="custom4"):
     # must exceed the tallest per-view stack (LoadImage 314 / preview 250+).
     C_LOAD, C_UP, C_MASK1, C_MASK2 = -1640, -1320, -1000, -730
     C_BATCH, C_VIEWS, C_RUN, C_EXP, C_PREV = -450, -160, 190, 610, 920
-    ROW0, PITCH = -260, 480
+    ROW0, PITCH = -260, 410
 
     node(90, "Note", [C_LOAD, -680], [500, 300], [], [], [note],
          props={}, color="#432", bgcolor="#653")
@@ -69,7 +69,7 @@ def build(filenames, prefix="custom4"):
     img_out, mask_out = [], []  # (node_id, slot) per view
     for i, fname in enumerate(filenames):
         y = ROW0 + i * PITCH
-        li, ui, pi = 100 + i * 10, 101 + i * 10, 106 + i * 10
+        li, ui = 100 + i * 10, 101 + i * 10
         mi, ti, si, ki = 102 + i * 10, 103 + i * 10, 104 + i * 10, 105 + i * 10
         node(li, "LoadImage", [C_LOAD, y], [274, 314],
              [],
@@ -82,10 +82,6 @@ def build(filenames, prefix="custom4"):
               {"name": "image", "type": "IMAGE", "link": link(li, 0, ui, 1, "IMAGE")}],
              [{"name": "IMAGE", "type": "IMAGE", "links": []}],
              [])
-        # Preview of the upscaled view, directly under its upscaler.
-        node(pi, "PreviewImage", [C_UP, y + 130], [270, 250],
-             [{"name": "images", "type": "IMAGE", "link": link(ui, 0, pi, 0, "IMAGE")}],
-             [], [])
         node(mi, "InvertMask", [C_MASK1, y], [220, 50],
              [{"name": "mask", "type": "MASK", "link": link(li, 1, mi, 0, "MASK")}],
              [{"name": "MASK", "type": "MASK", "links": []}],

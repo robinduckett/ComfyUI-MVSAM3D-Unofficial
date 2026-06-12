@@ -2,7 +2,7 @@
   "id": "mvsam3d-unofficial-custom4",
   "revision": 0,
   "last_node_id": 303,
-  "last_link_id": 41,
+  "last_link_id": 37,
   "nodes": [
     {
       "id": 1,
@@ -25,9 +25,9 @@
           "type": "UPSCALE_MODEL",
           "links": [
             1,
-            8,
-            15,
-            22
+            7,
+            13,
+            19
           ]
         }
       ],
@@ -90,7 +90,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            4
+            3
           ]
         }
       ],
@@ -133,8 +133,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            3,
-            29
+            25
           ]
         }
       ],
@@ -161,7 +160,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 4
+          "link": 3
         }
       ],
       "outputs": [
@@ -169,7 +168,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            5
+            4
           ]
         }
       ],
@@ -196,7 +195,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 5
+          "link": 4
         }
       ],
       "outputs": [
@@ -204,7 +203,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            6
+            5
           ]
         }
       ],
@@ -231,7 +230,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 6
+          "link": 5
         }
       ],
       "outputs": [
@@ -239,7 +238,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            7
+            6
           ]
         }
       ],
@@ -269,7 +268,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 7
+          "link": 6
         }
       ],
       "outputs": [
@@ -277,7 +276,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            33
+            29
           ]
         }
       ],
@@ -289,38 +288,11 @@
       ]
     },
     {
-      "id": 106,
-      "type": "PreviewImage",
-      "pos": [
-        -1320,
-        -130
-      ],
-      "size": [
-        270,
-        250
-      ],
-      "flags": {},
-      "order": 106,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 3
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
-    },
-    {
       "id": 110,
       "type": "LoadImage",
       "pos": [
         -1640,
-        220
+        150
       ],
       "size": [
         274,
@@ -335,14 +307,14 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            9
+            8
           ]
         },
         {
           "name": "MASK",
           "type": "MASK",
           "links": [
-            11
+            9
           ]
         }
       ],
@@ -359,7 +331,7 @@
       "type": "ImageUpscaleWithModel",
       "pos": [
         -1320,
-        220
+        150
       ],
       "size": [
         270,
@@ -372,12 +344,12 @@
         {
           "name": "upscale_model",
           "type": "UPSCALE_MODEL",
-          "link": 8
+          "link": 7
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 9
+          "link": 8
         }
       ],
       "outputs": [
@@ -385,8 +357,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            10,
-            30
+            26
           ]
         }
       ],
@@ -400,7 +371,7 @@
       "type": "InvertMask",
       "pos": [
         -1000,
-        220
+        150
       ],
       "size": [
         220,
@@ -413,7 +384,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 11
+          "link": 9
         }
       ],
       "outputs": [
@@ -421,7 +392,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            12
+            10
           ]
         }
       ],
@@ -435,7 +406,7 @@
       "type": "MaskToImage",
       "pos": [
         -1000,
-        340
+        270
       ],
       "size": [
         220,
@@ -448,7 +419,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 12
+          "link": 10
         }
       ],
       "outputs": [
@@ -456,7 +427,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            13
+            11
           ]
         }
       ],
@@ -470,7 +441,7 @@
       "type": "ImageScaleBy",
       "pos": [
         -730,
-        220
+        150
       ],
       "size": [
         230,
@@ -483,7 +454,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 13
+          "link": 11
         }
       ],
       "outputs": [
@@ -491,7 +462,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            14
+            12
           ]
         }
       ],
@@ -508,7 +479,7 @@
       "type": "ImageToMask",
       "pos": [
         -730,
-        380
+        310
       ],
       "size": [
         230,
@@ -521,7 +492,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 14
+          "link": 12
         }
       ],
       "outputs": [
@@ -529,7 +500,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            34
+            30
           ]
         }
       ],
@@ -541,38 +512,11 @@
       ]
     },
     {
-      "id": 116,
-      "type": "PreviewImage",
-      "pos": [
-        -1320,
-        350
-      ],
-      "size": [
-        270,
-        250
-      ],
-      "flags": {},
-      "order": 116,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 10
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
-    },
-    {
       "id": 120,
       "type": "LoadImage",
       "pos": [
         -1640,
-        700
+        560
       ],
       "size": [
         274,
@@ -587,14 +531,14 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            16
+            14
           ]
         },
         {
           "name": "MASK",
           "type": "MASK",
           "links": [
-            18
+            15
           ]
         }
       ],
@@ -611,7 +555,7 @@
       "type": "ImageUpscaleWithModel",
       "pos": [
         -1320,
-        700
+        560
       ],
       "size": [
         270,
@@ -624,12 +568,12 @@
         {
           "name": "upscale_model",
           "type": "UPSCALE_MODEL",
-          "link": 15
+          "link": 13
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 16
+          "link": 14
         }
       ],
       "outputs": [
@@ -637,8 +581,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            17,
-            31
+            27
           ]
         }
       ],
@@ -652,7 +595,7 @@
       "type": "InvertMask",
       "pos": [
         -1000,
-        700
+        560
       ],
       "size": [
         220,
@@ -665,7 +608,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 18
+          "link": 15
         }
       ],
       "outputs": [
@@ -673,7 +616,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            19
+            16
           ]
         }
       ],
@@ -687,7 +630,7 @@
       "type": "MaskToImage",
       "pos": [
         -1000,
-        820
+        680
       ],
       "size": [
         220,
@@ -700,7 +643,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 19
+          "link": 16
         }
       ],
       "outputs": [
@@ -708,7 +651,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            20
+            17
           ]
         }
       ],
@@ -722,7 +665,7 @@
       "type": "ImageScaleBy",
       "pos": [
         -730,
-        700
+        560
       ],
       "size": [
         230,
@@ -735,7 +678,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 20
+          "link": 17
         }
       ],
       "outputs": [
@@ -743,7 +686,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            21
+            18
           ]
         }
       ],
@@ -760,7 +703,7 @@
       "type": "ImageToMask",
       "pos": [
         -730,
-        860
+        720
       ],
       "size": [
         230,
@@ -773,7 +716,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 21
+          "link": 18
         }
       ],
       "outputs": [
@@ -781,7 +724,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            35
+            31
           ]
         }
       ],
@@ -793,38 +736,11 @@
       ]
     },
     {
-      "id": 126,
-      "type": "PreviewImage",
-      "pos": [
-        -1320,
-        830
-      ],
-      "size": [
-        270,
-        250
-      ],
-      "flags": {},
-      "order": 126,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 17
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
-    },
-    {
       "id": 130,
       "type": "LoadImage",
       "pos": [
         -1640,
-        1180
+        970
       ],
       "size": [
         274,
@@ -839,14 +755,14 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            23
+            20
           ]
         },
         {
           "name": "MASK",
           "type": "MASK",
           "links": [
-            25
+            21
           ]
         }
       ],
@@ -863,7 +779,7 @@
       "type": "ImageUpscaleWithModel",
       "pos": [
         -1320,
-        1180
+        970
       ],
       "size": [
         270,
@@ -876,12 +792,12 @@
         {
           "name": "upscale_model",
           "type": "UPSCALE_MODEL",
-          "link": 22
+          "link": 19
         },
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 23
+          "link": 20
         }
       ],
       "outputs": [
@@ -889,8 +805,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            24,
-            32
+            28
           ]
         }
       ],
@@ -904,7 +819,7 @@
       "type": "InvertMask",
       "pos": [
         -1000,
-        1180
+        970
       ],
       "size": [
         220,
@@ -917,7 +832,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 25
+          "link": 21
         }
       ],
       "outputs": [
@@ -925,7 +840,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            26
+            22
           ]
         }
       ],
@@ -939,7 +854,7 @@
       "type": "MaskToImage",
       "pos": [
         -1000,
-        1300
+        1090
       ],
       "size": [
         220,
@@ -952,7 +867,7 @@
         {
           "name": "mask",
           "type": "MASK",
-          "link": 26
+          "link": 22
         }
       ],
       "outputs": [
@@ -960,7 +875,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            27
+            23
           ]
         }
       ],
@@ -974,7 +889,7 @@
       "type": "ImageScaleBy",
       "pos": [
         -730,
-        1180
+        970
       ],
       "size": [
         230,
@@ -987,7 +902,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 27
+          "link": 23
         }
       ],
       "outputs": [
@@ -995,7 +910,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            28
+            24
           ]
         }
       ],
@@ -1012,7 +927,7 @@
       "type": "ImageToMask",
       "pos": [
         -730,
-        1340
+        1130
       ],
       "size": [
         230,
@@ -1025,7 +940,7 @@
         {
           "name": "image",
           "type": "IMAGE",
-          "link": 28
+          "link": 24
         }
       ],
       "outputs": [
@@ -1033,7 +948,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            36
+            32
           ]
         }
       ],
@@ -1045,38 +960,11 @@
       ]
     },
     {
-      "id": 136,
-      "type": "PreviewImage",
-      "pos": [
-        -1320,
-        1310
-      ],
-      "size": [
-        270,
-        250
-      ],
-      "flags": {},
-      "order": 136,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 24
-        }
-      ],
-      "outputs": [],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      },
-      "widgets_values": []
-    },
-    {
       "id": 200,
       "type": "BatchImagesNode",
       "pos": [
         -450,
-        340
+        235
       ],
       "size": [
         230,
@@ -1090,25 +978,25 @@
           "name": "images.image0",
           "localized_name": "image0",
           "type": "IMAGE",
-          "link": 29
+          "link": 25
         },
         {
           "name": "images.image1",
           "localized_name": "image1",
           "type": "IMAGE",
-          "link": 30
+          "link": 26
         },
         {
           "name": "images.image2",
           "localized_name": "image2",
           "type": "IMAGE",
-          "link": 31
+          "link": 27
         },
         {
           "name": "images.image3",
           "localized_name": "image3",
           "type": "IMAGE",
-          "link": 32
+          "link": 28
         }
       ],
       "outputs": [
@@ -1116,7 +1004,7 @@
           "name": "IMAGE",
           "type": "IMAGE",
           "links": [
-            37
+            33
           ]
         }
       ],
@@ -1130,7 +1018,7 @@
       "type": "BatchMasksNode",
       "pos": [
         -450,
-        580
+        475
       ],
       "size": [
         230,
@@ -1144,25 +1032,25 @@
           "name": "masks.mask0",
           "localized_name": "mask0",
           "type": "MASK",
-          "link": 33
+          "link": 29
         },
         {
           "name": "masks.mask1",
           "localized_name": "mask1",
           "type": "MASK",
-          "link": 34
+          "link": 30
         },
         {
           "name": "masks.mask2",
           "localized_name": "mask2",
           "type": "MASK",
-          "link": 35
+          "link": 31
         },
         {
           "name": "masks.mask3",
           "localized_name": "mask3",
           "type": "MASK",
-          "link": 36
+          "link": 32
         }
       ],
       "outputs": [
@@ -1170,7 +1058,7 @@
           "name": "MASK",
           "type": "MASK",
           "links": [
-            38
+            34
           ]
         }
       ],
@@ -1184,7 +1072,7 @@
       "type": "MVSAM3DLoadViews",
       "pos": [
         -160,
-        430
+        325
       ],
       "size": [
         300,
@@ -1197,12 +1085,12 @@
         {
           "name": "images",
           "type": "IMAGE",
-          "link": 37
+          "link": 33
         },
         {
           "name": "masks",
           "type": "MASK",
-          "link": 38
+          "link": 34
         }
       ],
       "outputs": [
@@ -1210,7 +1098,7 @@
           "name": "scene",
           "type": "MVSAM3D_SCENE",
           "links": [
-            39
+            35
           ]
         }
       ],
@@ -1228,7 +1116,7 @@
       "type": "MVSAM3DRunMultiView",
       "pos": [
         190,
-        170
+        65
       ],
       "size": [
         360,
@@ -1241,7 +1129,7 @@
         {
           "name": "scene",
           "type": "MVSAM3D_SCENE",
-          "link": 39
+          "link": 35
         }
       ],
       "outputs": [
@@ -1249,7 +1137,7 @@
           "name": "result",
           "type": "MVSAM3D_RESULT",
           "links": [
-            40
+            36
           ]
         },
         {
@@ -1297,7 +1185,7 @@
       "type": "MVSAM3DExport",
       "pos": [
         610,
-        170
+        65
       ],
       "size": [
         250,
@@ -1310,7 +1198,7 @@
         {
           "name": "result",
           "type": "MVSAM3D_RESULT",
-          "link": 40
+          "link": 36
         }
       ],
       "outputs": [
@@ -1318,7 +1206,7 @@
           "name": "path",
           "type": "STRING",
           "links": [
-            41
+            37
           ]
         },
         {
@@ -1340,7 +1228,7 @@
       "type": "Preview3D",
       "pos": [
         920,
-        170
+        65
       ],
       "size": [
         400,
@@ -1363,7 +1251,7 @@
         {
           "name": "model_file",
           "type": "STRING",
-          "link": 41
+          "link": 37
         }
       ],
       "outputs": [],
@@ -1395,14 +1283,6 @@
     ],
     [
       3,
-      101,
-      0,
-      106,
-      0,
-      "IMAGE"
-    ],
-    [
-      4,
       100,
       1,
       102,
@@ -1410,7 +1290,7 @@
       "MASK"
     ],
     [
-      5,
+      4,
       102,
       0,
       103,
@@ -1418,7 +1298,7 @@
       "MASK"
     ],
     [
-      6,
+      5,
       103,
       0,
       104,
@@ -1426,7 +1306,7 @@
       "IMAGE"
     ],
     [
-      7,
+      6,
       104,
       0,
       105,
@@ -1434,7 +1314,7 @@
       "IMAGE"
     ],
     [
-      8,
+      7,
       1,
       0,
       111,
@@ -1442,7 +1322,7 @@
       "UPSCALE_MODEL"
     ],
     [
-      9,
+      8,
       110,
       0,
       111,
@@ -1450,15 +1330,7 @@
       "IMAGE"
     ],
     [
-      10,
-      111,
-      0,
-      116,
-      0,
-      "IMAGE"
-    ],
-    [
-      11,
+      9,
       110,
       1,
       112,
@@ -1466,7 +1338,7 @@
       "MASK"
     ],
     [
-      12,
+      10,
       112,
       0,
       113,
@@ -1474,7 +1346,7 @@
       "MASK"
     ],
     [
-      13,
+      11,
       113,
       0,
       114,
@@ -1482,7 +1354,7 @@
       "IMAGE"
     ],
     [
-      14,
+      12,
       114,
       0,
       115,
@@ -1490,7 +1362,7 @@
       "IMAGE"
     ],
     [
-      15,
+      13,
       1,
       0,
       121,
@@ -1498,7 +1370,7 @@
       "UPSCALE_MODEL"
     ],
     [
-      16,
+      14,
       120,
       0,
       121,
@@ -1506,15 +1378,7 @@
       "IMAGE"
     ],
     [
-      17,
-      121,
-      0,
-      126,
-      0,
-      "IMAGE"
-    ],
-    [
-      18,
+      15,
       120,
       1,
       122,
@@ -1522,7 +1386,7 @@
       "MASK"
     ],
     [
-      19,
+      16,
       122,
       0,
       123,
@@ -1530,7 +1394,7 @@
       "MASK"
     ],
     [
-      20,
+      17,
       123,
       0,
       124,
@@ -1538,7 +1402,7 @@
       "IMAGE"
     ],
     [
-      21,
+      18,
       124,
       0,
       125,
@@ -1546,7 +1410,7 @@
       "IMAGE"
     ],
     [
-      22,
+      19,
       1,
       0,
       131,
@@ -1554,7 +1418,7 @@
       "UPSCALE_MODEL"
     ],
     [
-      23,
+      20,
       130,
       0,
       131,
@@ -1562,15 +1426,7 @@
       "IMAGE"
     ],
     [
-      24,
-      131,
-      0,
-      136,
-      0,
-      "IMAGE"
-    ],
-    [
-      25,
+      21,
       130,
       1,
       132,
@@ -1578,7 +1434,7 @@
       "MASK"
     ],
     [
-      26,
+      22,
       132,
       0,
       133,
@@ -1586,7 +1442,7 @@
       "MASK"
     ],
     [
-      27,
+      23,
       133,
       0,
       134,
@@ -1594,7 +1450,7 @@
       "IMAGE"
     ],
     [
-      28,
+      24,
       134,
       0,
       135,
@@ -1602,7 +1458,7 @@
       "IMAGE"
     ],
     [
-      29,
+      25,
       101,
       0,
       200,
@@ -1610,7 +1466,7 @@
       "IMAGE"
     ],
     [
-      30,
+      26,
       111,
       0,
       200,
@@ -1618,7 +1474,7 @@
       "IMAGE"
     ],
     [
-      31,
+      27,
       121,
       0,
       200,
@@ -1626,7 +1482,7 @@
       "IMAGE"
     ],
     [
-      32,
+      28,
       131,
       0,
       200,
@@ -1634,7 +1490,7 @@
       "IMAGE"
     ],
     [
-      33,
+      29,
       105,
       0,
       210,
@@ -1642,7 +1498,7 @@
       "MASK"
     ],
     [
-      34,
+      30,
       115,
       0,
       210,
@@ -1650,7 +1506,7 @@
       "MASK"
     ],
     [
-      35,
+      31,
       125,
       0,
       210,
@@ -1658,7 +1514,7 @@
       "MASK"
     ],
     [
-      36,
+      32,
       135,
       0,
       210,
@@ -1666,7 +1522,7 @@
       "MASK"
     ],
     [
-      37,
+      33,
       200,
       0,
       300,
@@ -1674,7 +1530,7 @@
       "IMAGE"
     ],
     [
-      38,
+      34,
       210,
       0,
       300,
@@ -1682,7 +1538,7 @@
       "MASK"
     ],
     [
-      39,
+      35,
       300,
       0,
       301,
@@ -1690,7 +1546,7 @@
       "MVSAM3D_SCENE"
     ],
     [
-      40,
+      36,
       301,
       0,
       302,
@@ -1698,7 +1554,7 @@
       "MVSAM3D_RESULT"
     ],
     [
-      41,
+      37,
       302,
       0,
       303,

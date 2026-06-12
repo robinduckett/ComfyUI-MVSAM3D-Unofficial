@@ -424,7 +424,16 @@ class MVSAM3DExport:
                 "to decode_formats on MV-SAM3D Run Multi-View.")
         rel = _output_relative(path, folder_paths.get_output_directory())
         print(f"[MV-SAM3D] {which} -> {path} | peak VRAM {result.get('peak_vram_gb')} GB")
-        return (rel, path)
+        out = {"result": (rel, path)}
+        # The jobs/queue gallery only lists outputs shaped as arrays of
+        # {filename, subfolder, type} dicts (resultItemParsing.isResultItem);
+        # Preview3D's string result never appears there. Emitting a ui["3d"]
+        # item (the SaveGLB convention) gives the job a real 3D gallery entry.
+        if rel.endswith(" [output]"):
+            p = rel[: -len(" [output]")]
+            sub, _, name = p.rpartition("/")
+            out["ui"] = {"3d": [{"filename": name, "subfolder": sub, "type": "output"}]}
+        return out
 
 
 NODE_CLASS_MAPPINGS = {

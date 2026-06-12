@@ -164,5 +164,20 @@ def test_export_path_is_annotated_output_for_preview3d(tmp_path):
     assert nodes._output_relative(str(other), str(out_root)) == str(other)
 
 
+def test_export_emits_3d_gallery_ui_item(tmp_path):
+    """The jobs gallery only lists outputs shaped as {filename, subfolder, type}
+    arrays; Export must emit a ui['3d'] item so the mesh shows in the jobs menu."""
+    nodes = _import_nodes()
+    out_root = tmp_path / "output"
+    glb = out_root / "mvsam3d" / "run_1" / "m.glb"
+    glb.parent.mkdir(parents=True)
+    glb.touch()
+    sys.modules["folder_paths"].get_output_directory = lambda: str(out_root)
+    out = nodes.MVSAM3DExport().run({"glb_path": str(glb), "peak_vram_gb": 1.0}, "glb")
+    assert out["result"] == ("mvsam3d/run_1/m.glb [output]", str(glb))
+    assert out["ui"] == {"3d": [{"filename": "m.glb", "subfolder": "mvsam3d/run_1",
+                                 "type": "output"}]}
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-v"]))
