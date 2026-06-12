@@ -29,7 +29,7 @@ not by Meta; all method credit is theirs.
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone --recursive https://github.com/diodes/ComfyUI-MVSAM3D-Unofficial.git
+git clone --recursive https://github.com/robinduckett/ComfyUI-MVSAM3D-Unofficial.git
 cd ComfyUI-MVSAM3D-Unofficial
 python scripts/setup_env.py
 ```

@@ -8,8 +8,8 @@ requires-python = ">=3.10"
 dependencies = []
 
 [project.urls]
-Repository = "https://github.com/diodes/ComfyUI-MVSAM3D-Unofficial"
+Repository = "https://github.com/robinduckett/ComfyUI-MVSAM3D-Unofficial"
 
 [tool.comfy]
-PublisherId = "diodes"
+PublisherId = "robinduckett"
 DisplayName = "MV-SAM3D (Unofficial Wrapper)"
