@@ -146,17 +146,18 @@ def test_node_mappings_complete():
             "MVSAM3DExport"} == set(nodes.NODE_CLASS_MAPPINGS)
 
 
-def test_export_path_is_output_relative_for_preview3d(tmp_path):
-    """Preview3D loads model_file relative to the output dir via /view; an
-    absolute path fails with 'Error loading model'. Pin the relativize contract."""
+def test_export_path_is_annotated_output_for_preview3d(tmp_path):
+    """Preview3D needs the annotated 'subfolder/file [output]' form: the frontend
+    parses the [output] suffix for the /view type (defaults to temp in the queue
+    preview otherwise). Pin that contract."""
     nodes = _import_nodes()
     out_root = tmp_path / "output"
     glb = out_root / "mvsam3d" / "run_1" / "m.glb"
     glb.parent.mkdir(parents=True)
     glb.touch()
     rel = nodes._output_relative(str(glb), str(out_root))
-    assert rel == "mvsam3d/run_1/m.glb"
-    # outside the output dir -> unchanged
+    assert rel == "mvsam3d/run_1/m.glb [output]"
+    # outside the output dir -> unchanged, no annotation
     other = tmp_path / "elsewhere" / "m.glb"
     other.parent.mkdir(parents=True)
     other.touch()

@@ -380,15 +380,16 @@ class MVSAM3DRunMultiView:
 
 
 def _output_relative(path: str, output_dir: str) -> str:
-    """Preview3D resolves its model_file RELATIVE to the ComfyUI output dir (it
-    feeds the frontend's /view endpoint), so an absolute path shows 'Error
-    loading model'. Return the output-relative, forward-slash form when the file
-    is inside the output dir; otherwise the path unchanged."""
+    """Preview3D needs the ComfyUI ANNOTATED form 'subfolder/file.glb [output]':
+    the frontend's parseAnnotatedFilename reads the [output] suffix to pick the
+    /view endpoint type (unannotated values fall back to type=temp in the queue
+    preview and 404 -> 'Error loading model'). Return that form when the file is
+    inside the output dir; otherwise the path unchanged."""
     try:
         rp = os.path.realpath(path)
         root = os.path.realpath(output_dir)
         if os.path.commonpath([rp, root]) == root:
-            return os.path.relpath(rp, root).replace("\\", "/")
+            return os.path.relpath(rp, root).replace("\\", "/") + " [output]"
     except ValueError:
         pass  # different drive on Windows — not under the output dir
     return path
