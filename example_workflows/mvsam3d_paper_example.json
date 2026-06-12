@@ -124,6 +124,11 @@
           "name": "path",
           "type": "STRING",
           "links": [4]
+        },
+        {
+          "name": "abs_path",
+          "type": "STRING",
+          "links": []
         }
       ],
       "properties": {
