@@ -1087,22 +1087,26 @@
       "mode": 0,
       "inputs": [
         {
-          "name": "image0",
+          "name": "images.image0",
+          "localized_name": "image0",
           "type": "IMAGE",
           "link": 29
         },
         {
-          "name": "image1",
+          "name": "images.image1",
+          "localized_name": "image1",
           "type": "IMAGE",
           "link": 30
         },
         {
-          "name": "image2",
+          "name": "images.image2",
+          "localized_name": "image2",
           "type": "IMAGE",
           "link": 31
         },
         {
-          "name": "image3",
+          "name": "images.image3",
+          "localized_name": "image3",
           "type": "IMAGE",
           "link": 32
         }
@@ -1137,22 +1141,26 @@
       "mode": 0,
       "inputs": [
         {
-          "name": "mask0",
+          "name": "masks.mask0",
+          "localized_name": "mask0",
           "type": "MASK",
           "link": 33
         },
         {
-          "name": "mask1",
+          "name": "masks.mask1",
+          "localized_name": "mask1",
           "type": "MASK",
           "link": 34
         },
         {
-          "name": "mask2",
+          "name": "masks.mask2",
+          "localized_name": "mask2",
           "type": "MASK",
           "link": 35
         },
         {
-          "name": "mask3",
+          "name": "masks.mask3",
+          "localized_name": "mask3",
           "type": "MASK",
           "link": 36
         }

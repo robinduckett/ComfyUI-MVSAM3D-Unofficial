@@ -109,14 +109,14 @@ def build(filenames, prefix="custom4"):
     # Modern variadic batch nodes (ImageBatch / chained pairs are deprecated).
     node(200, "BatchImagesNode", [C_BATCH, mid_y - 120],
          [230, 40 + 26 * len(img_out)],
-         [{"name": f"image{k}", "type": "IMAGE",
+         [{"name": f"images.image{k}", "localized_name": f"image{k}", "type": "IMAGE",
            "link": link(src[0], src[1], 200, k, "IMAGE")}
           for k, src in enumerate(img_out)],
          [{"name": "IMAGE", "type": "IMAGE", "links": []}],
          [])
     node(210, "BatchMasksNode", [C_BATCH, mid_y + 120],
          [230, 40 + 26 * len(mask_out)],
-         [{"name": f"mask{k}", "type": "MASK",
+         [{"name": f"masks.mask{k}", "localized_name": f"mask{k}", "type": "MASK",
            "link": link(src[0], src[1], 210, k, "MASK")}
           for k, src in enumerate(mask_out)],
          [{"name": "MASK", "type": "MASK", "links": []}],
