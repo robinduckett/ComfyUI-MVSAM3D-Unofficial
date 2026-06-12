@@ -1,0 +1,176 @@
+{
+  "id": "mvsam3d-unofficial-paper-example",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 4,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "Note",
+      "pos": [-700, -420],
+      "size": [420, 150],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "MV-SAM3D paper reproduction (arXiv:2603.11633).\n\nScene From Dir with empty scene_dir uses the paper's own bundled example scene (vendor/MV-SAM3D/data/example: 8 views of a stuffed toy). Defaults reproduce the published entropy-weighted run: seed 42, stage1 50 / stage2 25 steps, SS entropy layer 9, SLAT entropy layer 6, alpha 30.\n\nFirst run builds the pipeline (~2-3 min), full run ~5 min on a 16 GB RTX 5070 Ti (peak ~14 GB with offload on)."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 1,
+      "type": "MVSAM3DSceneFromDir",
+      "pos": [-700, -200],
+      "size": [320, 110],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "scene",
+          "type": "MVSAM3D_SCENE",
+          "links": [1]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-mvsam3d-unofficial",
+        "Node name for S&R": "MVSAM3DSceneFromDir"
+      },
+      "widgets_values": ["", ""]
+    },
+    {
+      "id": 2,
+      "type": "MVSAM3DRunMultiView",
+      "pos": [-320, -300],
+      "size": [360, 560],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "scene",
+          "type": "MVSAM3D_SCENE",
+          "link": 1
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "MVSAM3D_RESULT",
+          "links": [2]
+        },
+        {
+          "name": "glb_path",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "ply_path",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-mvsam3d-unofficial",
+        "Node name for S&R": "MVSAM3DRunMultiView"
+      },
+      "widgets_values": [
+        42,
+        "fixed",
+        50,
+        25,
+        true,
+        9,
+        30.0,
+        true,
+        "entropy",
+        30.0,
+        30.0,
+        6,
+        0,
+        0.001,
+        "average",
+        "gaussian,mesh",
+        "mvsam3d_example",
+        true,
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 3,
+      "type": "MVSAM3DExport",
+      "pos": [90, -300],
+      "size": [240, 80],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "result",
+          "type": "MVSAM3D_RESULT",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "path",
+          "type": "STRING",
+          "links": [4]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-mvsam3d-unofficial",
+        "Node name for S&R": "MVSAM3DExport"
+      },
+      "widgets_values": ["glb"]
+    },
+    {
+      "id": 4,
+      "type": "Preview3D",
+      "pos": [380, -300],
+      "size": [400, 440],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "camera_info",
+          "type": "LOAD3D_CAMERA",
+          "link": null
+        },
+        {
+          "name": "bg_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_file",
+          "type": "STRING",
+          "link": 4
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Preview3D"
+      },
+      "widgets_values": ["", ""]
+    }
+  ],
+  "links": [
+    [1, 1, 0, 2, 0, "MVSAM3D_SCENE"],
+    [2, 2, 0, 3, 0, "MVSAM3D_RESULT"],
+    [4, 3, 0, 4, 2, "STRING"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

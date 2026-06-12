@@ -1,0 +1,60 @@
+MIT License
+
+Copyright (c) 2026 diodes (robin@diod.es)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+SCOPE NOTICE — what this MIT license does and does not cover
+================================================================================
+
+This MIT license covers ONLY the original wrapper/glue code in this repository
+(the ComfyUI nodes, the subprocess worker orchestration, the offloading device
+shuffling, and the setup scripts).
+
+IT DOES NOT COVER:
+
+1. MV-SAM3D (https://github.com/devinli123/MV-SAM3D). This repository does NOT
+   redistribute any MV-SAM3D code. It references the upstream repository as a
+   git submodule (vendor/MV-SAM3D) — a pointer that is fetched from upstream
+   onto YOUR machine when you initialize it. MV-SAM3D is distributed by its
+   authors under Meta's SAM License (a non-permissive license with its own
+   terms and restrictions). By initializing the submodule and running this
+   wrapper, you accept those terms directly from upstream. Review them before
+   any use, especially commercial use.
+
+2. Meta SAM 3D Objects (model weights and engine). Not contained, fetched, or
+   redistributed here. Governed by Meta's SAM License. The weights are
+   downloaded by the separate ComfyUI-SAM3DObjects pack; its obligations flow
+   through to you.
+
+3. ComfyUI-SAM3DObjects (https://github.com/PozzettiAndrea/ComfyUI-SAM3DObjects,
+   GPL-3.0). This wrapper does not import, link, or redistribute its code. It
+   only executes the standalone Python interpreter of the pixi environment that
+   pack provisions, as a subprocess. The GPL-3.0 governs that pack, not this
+   one.
+
+ATTRIBUTION: If you use this wrapper in academic or published work, cite the
+MV-SAM3D paper (arXiv:2603.11633) and Meta SAM 3D Objects. All credit for the
+multi-view fusion method belongs to the MV-SAM3D authors; all credit for the
+underlying 3D reconstruction belongs to Meta AI Research.
+
+TRADEMARKS: "SAM", "SAM 3D", "Segment Anything", and "Meta" are trademarks of
+Meta Platforms, Inc. This project is not affiliated with, endorsed by, or
+sponsored by Meta or the MV-SAM3D authors — hence "Unofficial".

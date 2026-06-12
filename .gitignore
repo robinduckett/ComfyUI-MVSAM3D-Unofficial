@@ -1,0 +1,36 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# ---- envs (this pack reuses the donor pixi env; never commit one) ----
+.venv/
+venv/
+.pixi/
+
+# ---- model weights / run artifacts (large and/or licensed — never commit) ----
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.glb
+*.ply
+*.npz
+job.json
+*_result.json
+output/
+outputs/
+
+# ---- editor / OS ----
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- logs / scratch ----
+*.log
+tmp/

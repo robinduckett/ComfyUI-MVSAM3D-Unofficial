@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-mvsam3d-unofficial"
+description = "Unofficial ComfyUI wrapper for MV-SAM3D (arXiv:2603.11633). Drives the authors' official code, unmodified, from a pinned submodule via a subprocess worker into the prebuilt ComfyUI-SAM3DObjects pixi env — reproducing the paper's entropy-weighted multi-view SAM 3D Objects reconstructions inside ComfyUI."
+version = "0.1.0"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+# Host-process deps only; the heavy stack lives in the reused pixi env.
+dependencies = []
+
+[project.urls]
+Repository = "https://github.com/diodes/ComfyUI-MVSAM3D-Unofficial"
+
+[tool.comfy]
+PublisherId = "diodes"
+DisplayName = "MV-SAM3D (Unofficial Wrapper)"

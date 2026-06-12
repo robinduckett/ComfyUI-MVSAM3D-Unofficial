@@ -1,0 +1,4 @@
+# Host-process (main ComfyUI interpreter) dependencies: none beyond what ComfyUI
+# already ships (numpy, Pillow). ALL heavy deps (torch, spconv, pytorch3d, ...)
+# live in the reused `sam3dobjects-nodes` pixi env built by ComfyUI-SAM3DObjects.
+# Run scripts/setup_env.py once to provision that env's extras + the vendor repo.
