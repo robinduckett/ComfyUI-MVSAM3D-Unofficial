@@ -1,11 +1,17 @@
 [project]
-name = "comfyui-mvsam3d-unofficial"
+# Registry node id — immutable after first publish; registry forbids 'ComfyUI' in it.
+name = "mvsam3d-unofficial"
 description = "Unofficial ComfyUI wrapper for MV-SAM3D (arXiv:2603.11633). Drives the authors' official code, unmodified, from a pinned submodule via a subprocess worker into the prebuilt ComfyUI-SAM3DObjects pixi env — reproducing the paper's entropy-weighted multi-view SAM 3D Objects reconstructions inside ComfyUI."
 version = "0.1.0"
-license = { text = "MIT" }
+license = { file = "LICENSE" }
 requires-python = ">=3.10"
 # Host-process deps only; the heavy stack lives in the reused pixi env.
 dependencies = []
+classifiers = [
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Environment :: GPU :: NVIDIA CUDA",
+]
 
 [project.urls]
 Repository = "https://github.com/robinduckett/ComfyUI-MVSAM3D-Unofficial"

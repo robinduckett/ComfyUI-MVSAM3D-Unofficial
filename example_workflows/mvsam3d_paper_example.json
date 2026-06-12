@@ -38,7 +38,7 @@
         }
       ],
       "properties": {
-        "cnr_id": "comfyui-mvsam3d-unofficial",
+        "cnr_id": "mvsam3d-unofficial",
         "Node name for S&R": "MVSAM3DSceneFromDir"
       },
       "widgets_values": ["", ""]
@@ -76,7 +76,7 @@
         }
       ],
       "properties": {
-        "cnr_id": "comfyui-mvsam3d-unofficial",
+        "cnr_id": "mvsam3d-unofficial",
         "Node name for S&R": "MVSAM3DRunMultiView"
       },
       "widgets_values": [
@@ -127,7 +127,7 @@
         }
       ],
       "properties": {
-        "cnr_id": "comfyui-mvsam3d-unofficial",
+        "cnr_id": "mvsam3d-unofficial",
         "Node name for S&R": "MVSAM3DExport"
       },
       "widgets_values": ["glb"]

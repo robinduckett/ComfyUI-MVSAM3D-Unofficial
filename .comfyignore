@@ -1,0 +1,10 @@
+# Excluded from the registry archive (layered on .gitignore).
+#
+# vendor/ MUST never ship in the archive: the MV-SAM3D submodule content is
+# Meta SAM-licensed and may only be redistributed under that license's own
+# terms. It is fetched from upstream at install time (install.py /
+# scripts/setup_env.py) instead. Untracked files are excluded anyway; this
+# makes the guarantee explicit.
+vendor/
+.smoke-run/
+.github/
