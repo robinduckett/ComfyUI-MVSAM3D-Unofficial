@@ -20,8 +20,41 @@ Not affiliated with Meta or the MV-SAM3D authors, hence "Unofficial".
   installed and working, meaning it has produced at least one single-view mesh.
   This pack reuses its `sam3dobjects-nodes` pixi environment and its downloaded
   weights (`models/sam3dobjects/`, including `pipeline.yaml`). Without it,
-  nothing here runs.
+  nothing here runs. Setting it up from scratch is covered below.
+- `git` on PATH (used to fetch the pinned MV-SAM3D checkout).
 - A few extra GB of disk for the MV-SAM3D checkout.
+
+## Starting from a fresh ComfyUI
+
+If you have a brand-new ComfyUI and none of the above yet, the order is:
+
+1. Get ComfyUI running on your NVIDIA GPU (Desktop or portable, plus
+   ComfyUI-Manager if your install doesn't bundle it).
+2. Install **ComfyUI-SAM3DObjects** through Manager. Its install provisions an
+   isolated pixi environment with the CUDA stack (pytorch3d, spconv,
+   flash-attn, …) — a multi-GB download/build that can take a long while.
+   That's normal; let it finish.
+3. Restart ComfyUI and run one **single-view** generation with that pack (it
+   ships a `mesh_generation` example workflow). The first run downloads the
+   SAM 3D Objects model weights (multi-GB, Meta SAM License) into
+   `models/sam3dobjects/`. Don't continue until this works — multi-view can't
+   run on a setup where single-view doesn't.
+4. Install **this pack** (Manager, or the git clone below).
+5. Run the one-time `setup_env.py` step from the Install section.
+6. Restart ComfyUI and queue `example_workflows/mvsam3d_paper_example.json`.
+
+No `python` on PATH (ComfyUI Desktop doesn't ship one)? `setup_env.py` is
+stdlib-only, so the pixi environment's own interpreter can run it. On Windows
+the default location is
+`%LOCALAPPDATA%\Programs\comfy-env\.pixi\envs\sam3dobjects-nodes\python.exe`:
+
+```
+cd ComfyUI/custom_nodes/ComfyUI-MVSAM3D-Unofficial
+%LOCALAPPDATA%\Programs\comfy-env\.pixi\envs\sam3dobjects-nodes\python.exe scripts\setup_env.py
+```
+
+(If your comfy-env workspace lives elsewhere, the error message any MV-SAM3D
+node prints on first use includes the paths it searched.)
 
 ## Install
 
