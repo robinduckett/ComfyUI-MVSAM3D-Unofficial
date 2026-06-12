@@ -379,6 +379,21 @@ class MVSAM3DRunMultiView:
         return (result, result["glb_path"], result["ply_path"])
 
 
+def _output_relative(path: str, output_dir: str) -> str:
+    """Preview3D resolves its model_file RELATIVE to the ComfyUI output dir (it
+    feeds the frontend's /view endpoint), so an absolute path shows 'Error
+    loading model'. Return the output-relative, forward-slash form when the file
+    is inside the output dir; otherwise the path unchanged."""
+    try:
+        rp = os.path.realpath(path)
+        root = os.path.realpath(output_dir)
+        if os.path.commonpath([rp, root]) == root:
+            return os.path.relpath(rp, root).replace("\\", "/")
+    except ValueError:
+        pass  # different drive on Windows — not under the output dir
+    return path
+
+
 class MVSAM3DExport:
     """Surface the result GLB/PLY path for downstream 3D-preview / save nodes."""
 
@@ -390,20 +405,25 @@ class MVSAM3DExport:
                                        "tooltip": "glb = mesh, ply = Gaussian splat."}),
         }}
 
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("path",)
+    RETURN_TYPES = ("STRING", "STRING")
+    RETURN_NAMES = ("path", "abs_path")
+    OUTPUT_TOOLTIPS = ("Output-relative path — feed this to Preview3D.",
+                       "Absolute filesystem path, for external tools.")
     FUNCTION = "run"
     CATEGORY = "MV-SAM3D"
     OUTPUT_NODE = True
 
     def run(self, result, which):
+        import folder_paths
+
         path = result.get(f"{which}_path", "")
         if not path:
             raise ValueError(
                 f"no {which} in this result — add '{'mesh' if which == 'glb' else 'gaussian'}' "
                 "to decode_formats on MV-SAM3D Run Multi-View.")
+        rel = _output_relative(path, folder_paths.get_output_directory())
         print(f"[MV-SAM3D] {which} -> {path} | peak VRAM {result.get('peak_vram_gb')} GB")
-        return (path,)
+        return (rel, path)
 
 
 NODE_CLASS_MAPPINGS = {
