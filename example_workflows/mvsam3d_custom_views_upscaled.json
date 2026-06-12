@@ -1,0 +1,1593 @@
+{
+  "id": "mvsam3d-unofficial-custom4",
+  "revision": 0,
+  "last_node_id": 303,
+  "last_link_id": 38,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UpscaleModelLoader",
+      "pos": [
+        -1560,
+        -420
+      ],
+      "size": [
+        315,
+        60
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "UPSCALE_MODEL",
+          "type": "UPSCALE_MODEL",
+          "links": [
+            1,
+            6,
+            11,
+            16
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "UpscaleModelLoader"
+      },
+      "widgets_values": [
+        "RealESRGAN_x4plus.pth"
+      ]
+    },
+    {
+      "id": 90,
+      "type": "Note",
+      "pos": [
+        -1560,
+        -700
+      ],
+      "size": [
+        460,
+        240
+      ],
+      "flags": {},
+      "order": 90,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Note"
+      },
+      "widgets_values": [
+        "MV-SAM3D: 4 custom views, upscaled.\n\nPer view: RealESRGAN x4 on the image; the foreground mask comes from the image's alpha channel (InvertMask because LoadImage's MASK output is inverted alpha) and is scaled x4 to match. No alpha? Feed masks from your segmentation pack into the mask chain instead.\n\nNo depth-estimate step is needed: the MV-SAM3D pipeline computes pointmaps itself (MoGe).\n\nweight_source=entropy is the paper method. 'visibility'/'mixed' need a Depth-Anything-3 npz on da3_npz.\n\nView order = batch order; put your reference/front view first. Images of different sizes are auto-resized to the first view's size by Image Batch."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 100,
+      "type": "LoadImage",
+      "pos": [
+        -1560,
+        -300
+      ],
+      "size": [
+        274,
+        314
+      ],
+      "flags": {},
+      "order": 100,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            3
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "view_1.png",
+        "image"
+      ]
+    },
+    {
+      "id": 101,
+      "type": "ImageUpscaleWithModel",
+      "pos": [
+        -1240,
+        -300
+      ],
+      "size": [
+        240,
+        46
+      ],
+      "flags": {},
+      "order": 101,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 1
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 2
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            21
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageUpscaleWithModel"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 102,
+      "type": "InvertMask",
+      "pos": [
+        -1240,
+        -220
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 102,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            4
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "InvertMask"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 103,
+      "type": "MaskToImage",
+      "pos": [
+        -1240,
+        -160
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 103,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            5
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 104,
+      "type": "ImageScaleBy",
+      "pos": [
+        -1240,
+        -100
+      ],
+      "size": [
+        240,
+        82
+      ],
+      "flags": {},
+      "order": 104,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            27
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageScaleBy"
+      },
+      "widgets_values": [
+        "bilinear",
+        4.0
+      ]
+    },
+    {
+      "id": 110,
+      "type": "LoadImage",
+      "pos": [
+        -1560,
+        40
+      ],
+      "size": [
+        274,
+        314
+      ],
+      "flags": {},
+      "order": 110,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            7
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            8
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "view_2.png",
+        "image"
+      ]
+    },
+    {
+      "id": 111,
+      "type": "ImageUpscaleWithModel",
+      "pos": [
+        -1240,
+        40
+      ],
+      "size": [
+        240,
+        46
+      ],
+      "flags": {},
+      "order": 111,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 6
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageUpscaleWithModel"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 112,
+      "type": "InvertMask",
+      "pos": [
+        -1240,
+        120
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 112,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "InvertMask"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 113,
+      "type": "MaskToImage",
+      "pos": [
+        -1240,
+        180
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 113,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 114,
+      "type": "ImageScaleBy",
+      "pos": [
+        -1240,
+        240
+      ],
+      "size": [
+        240,
+        82
+      ],
+      "flags": {},
+      "order": 114,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 10
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            28
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageScaleBy"
+      },
+      "widgets_values": [
+        "bilinear",
+        4.0
+      ]
+    },
+    {
+      "id": 120,
+      "type": "LoadImage",
+      "pos": [
+        -1560,
+        380
+      ],
+      "size": [
+        274,
+        314
+      ],
+      "flags": {},
+      "order": 120,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "view_3.png",
+        "image"
+      ]
+    },
+    {
+      "id": 121,
+      "type": "ImageUpscaleWithModel",
+      "pos": [
+        -1240,
+        380
+      ],
+      "size": [
+        240,
+        46
+      ],
+      "flags": {},
+      "order": 121,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 11
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            24
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageUpscaleWithModel"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 122,
+      "type": "InvertMask",
+      "pos": [
+        -1240,
+        460
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 122,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 13
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "InvertMask"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 123,
+      "type": "MaskToImage",
+      "pos": [
+        -1240,
+        520
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 123,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 14
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 124,
+      "type": "ImageScaleBy",
+      "pos": [
+        -1240,
+        580
+      ],
+      "size": [
+        240,
+        82
+      ],
+      "flags": {},
+      "order": 124,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 15
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            30
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageScaleBy"
+      },
+      "widgets_values": [
+        "bilinear",
+        4.0
+      ]
+    },
+    {
+      "id": 130,
+      "type": "LoadImage",
+      "pos": [
+        -1560,
+        720
+      ],
+      "size": [
+        274,
+        314
+      ],
+      "flags": {},
+      "order": 130,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            17
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "view_4.png",
+        "image"
+      ]
+    },
+    {
+      "id": 131,
+      "type": "ImageUpscaleWithModel",
+      "pos": [
+        -1240,
+        720
+      ],
+      "size": [
+        240,
+        46
+      ],
+      "flags": {},
+      "order": 131,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "upscale_model",
+          "type": "UPSCALE_MODEL",
+          "link": 16
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            26
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageUpscaleWithModel"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 132,
+      "type": "InvertMask",
+      "pos": [
+        -1240,
+        800
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 132,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "InvertMask"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 133,
+      "type": "MaskToImage",
+      "pos": [
+        -1240,
+        860
+      ],
+      "size": [
+        210,
+        26
+      ],
+      "flags": {},
+      "order": 133,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 19
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            20
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 134,
+      "type": "ImageScaleBy",
+      "pos": [
+        -1240,
+        920
+      ],
+      "size": [
+        240,
+        82
+      ],
+      "flags": {},
+      "order": 134,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            32
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageScaleBy"
+      },
+      "widgets_values": [
+        "bilinear",
+        4.0
+      ]
+    },
+    {
+      "id": 201,
+      "type": "ImageBatch",
+      "pos": [
+        -940,
+        -150
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 201,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 21
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            23
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageBatch"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 202,
+      "type": "ImageBatch",
+      "pos": [
+        -940,
+        -40
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 202,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 23
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 24
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            25
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageBatch"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 203,
+      "type": "ImageBatch",
+      "pos": [
+        -940,
+        70
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 203,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 25
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 26
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            34
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageBatch"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 211,
+      "type": "ImageBatch",
+      "pos": [
+        -940,
+        -150
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 211,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 27
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 28
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            29
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageBatch"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 212,
+      "type": "ImageBatch",
+      "pos": [
+        -940,
+        -40
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 212,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 29
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 30
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            31
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageBatch"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 213,
+      "type": "ImageBatch",
+      "pos": [
+        -940,
+        70
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {},
+      "order": 213,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image1",
+          "type": "IMAGE",
+          "link": 31
+        },
+        {
+          "name": "image2",
+          "type": "IMAGE",
+          "link": 32
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            33
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageBatch"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 220,
+      "type": "ImageToMask",
+      "pos": [
+        -700,
+        160
+      ],
+      "size": [
+        240,
+        60
+      ],
+      "flags": {},
+      "order": 220,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 33
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            35
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageToMask"
+      },
+      "widgets_values": [
+        "red"
+      ]
+    },
+    {
+      "id": 300,
+      "type": "MVSAM3DLoadViews",
+      "pos": [
+        -700,
+        -160
+      ],
+      "size": [
+        300,
+        130
+      ],
+      "flags": {},
+      "order": 300,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 34
+        },
+        {
+          "name": "masks",
+          "type": "MASK",
+          "link": 35
+        }
+      ],
+      "outputs": [
+        {
+          "name": "scene",
+          "type": "MVSAM3D_SCENE",
+          "links": [
+            36
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MVSAM3DLoadViews",
+        "cnr_id": "mvsam3d-unofficial"
+      },
+      "widgets_values": [
+        "custom4",
+        "custom4"
+      ]
+    },
+    {
+      "id": 301,
+      "type": "MVSAM3DRunMultiView",
+      "pos": [
+        -360,
+        -300
+      ],
+      "size": [
+        360,
+        560
+      ],
+      "flags": {},
+      "order": 301,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "scene",
+          "type": "MVSAM3D_SCENE",
+          "link": 36
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "MVSAM3D_RESULT",
+          "links": [
+            37
+          ]
+        },
+        {
+          "name": "glb_path",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "ply_path",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MVSAM3DRunMultiView",
+        "cnr_id": "mvsam3d-unofficial"
+      },
+      "widgets_values": [
+        42,
+        "fixed",
+        50,
+        25,
+        true,
+        9,
+        30.0,
+        true,
+        "entropy",
+        30.0,
+        30.0,
+        6,
+        0,
+        0.001,
+        "average",
+        "gaussian,mesh",
+        "custom4",
+        true,
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": 302,
+      "type": "MVSAM3DExport",
+      "pos": [
+        40,
+        -300
+      ],
+      "size": [
+        240,
+        80
+      ],
+      "flags": {},
+      "order": 302,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "result",
+          "type": "MVSAM3D_RESULT",
+          "link": 37
+        }
+      ],
+      "outputs": [
+        {
+          "name": "path",
+          "type": "STRING",
+          "links": [
+            38
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MVSAM3DExport",
+        "cnr_id": "mvsam3d-unofficial"
+      },
+      "widgets_values": [
+        "glb"
+      ]
+    },
+    {
+      "id": 303,
+      "type": "Preview3D",
+      "pos": [
+        320,
+        -300
+      ],
+      "size": [
+        400,
+        440
+      ],
+      "flags": {},
+      "order": 303,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "camera_info",
+          "type": "LOAD3D_CAMERA",
+          "link": null
+        },
+        {
+          "name": "bg_image",
+          "type": "IMAGE",
+          "link": null
+        },
+        {
+          "name": "model_file",
+          "type": "STRING",
+          "link": 38
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "Preview3D"
+      },
+      "widgets_values": [
+        "",
+        ""
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      1,
+      0,
+      101,
+      0,
+      "UPSCALE_MODEL"
+    ],
+    [
+      2,
+      100,
+      0,
+      101,
+      1,
+      "IMAGE"
+    ],
+    [
+      3,
+      100,
+      1,
+      102,
+      0,
+      "MASK"
+    ],
+    [
+      4,
+      102,
+      0,
+      103,
+      0,
+      "MASK"
+    ],
+    [
+      5,
+      103,
+      0,
+      104,
+      0,
+      "IMAGE"
+    ],
+    [
+      6,
+      1,
+      0,
+      111,
+      0,
+      "UPSCALE_MODEL"
+    ],
+    [
+      7,
+      110,
+      0,
+      111,
+      1,
+      "IMAGE"
+    ],
+    [
+      8,
+      110,
+      1,
+      112,
+      0,
+      "MASK"
+    ],
+    [
+      9,
+      112,
+      0,
+      113,
+      0,
+      "MASK"
+    ],
+    [
+      10,
+      113,
+      0,
+      114,
+      0,
+      "IMAGE"
+    ],
+    [
+      11,
+      1,
+      0,
+      121,
+      0,
+      "UPSCALE_MODEL"
+    ],
+    [
+      12,
+      120,
+      0,
+      121,
+      1,
+      "IMAGE"
+    ],
+    [
+      13,
+      120,
+      1,
+      122,
+      0,
+      "MASK"
+    ],
+    [
+      14,
+      122,
+      0,
+      123,
+      0,
+      "MASK"
+    ],
+    [
+      15,
+      123,
+      0,
+      124,
+      0,
+      "IMAGE"
+    ],
+    [
+      16,
+      1,
+      0,
+      131,
+      0,
+      "UPSCALE_MODEL"
+    ],
+    [
+      17,
+      130,
+      0,
+      131,
+      1,
+      "IMAGE"
+    ],
+    [
+      18,
+      130,
+      1,
+      132,
+      0,
+      "MASK"
+    ],
+    [
+      19,
+      132,
+      0,
+      133,
+      0,
+      "MASK"
+    ],
+    [
+      20,
+      133,
+      0,
+      134,
+      0,
+      "IMAGE"
+    ],
+    [
+      21,
+      101,
+      0,
+      201,
+      0,
+      "IMAGE"
+    ],
+    [
+      22,
+      111,
+      0,
+      201,
+      1,
+      "IMAGE"
+    ],
+    [
+      23,
+      201,
+      0,
+      202,
+      0,
+      "IMAGE"
+    ],
+    [
+      24,
+      121,
+      0,
+      202,
+      1,
+      "IMAGE"
+    ],
+    [
+      25,
+      202,
+      0,
+      203,
+      0,
+      "IMAGE"
+    ],
+    [
+      26,
+      131,
+      0,
+      203,
+      1,
+      "IMAGE"
+    ],
+    [
+      27,
+      104,
+      0,
+      211,
+      0,
+      "IMAGE"
+    ],
+    [
+      28,
+      114,
+      0,
+      211,
+      1,
+      "IMAGE"
+    ],
+    [
+      29,
+      211,
+      0,
+      212,
+      0,
+      "IMAGE"
+    ],
+    [
+      30,
+      124,
+      0,
+      212,
+      1,
+      "IMAGE"
+    ],
+    [
+      31,
+      212,
+      0,
+      213,
+      0,
+      "IMAGE"
+    ],
+    [
+      32,
+      134,
+      0,
+      213,
+      1,
+      "IMAGE"
+    ],
+    [
+      33,
+      213,
+      0,
+      220,
+      0,
+      "IMAGE"
+    ],
+    [
+      34,
+      203,
+      0,
+      300,
+      0,
+      "IMAGE"
+    ],
+    [
+      35,
+      220,
+      0,
+      300,
+      1,
+      "MASK"
+    ],
+    [
+      36,
+      300,
+      0,
+      301,
+      0,
+      "MVSAM3D_SCENE"
+    ],
+    [
+      37,
+      301,
+      0,
+      302,
+      0,
+      "MVSAM3D_RESULT"
+    ],
+    [
+      38,
+      302,
+      0,
+      303,
+      2,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {},
+  "version": 0.4
+}

@@ -122,11 +122,17 @@ in `vendor/MV-SAM3D/data/example/visualization_results/` if you want to compare.
 
 ### Using your own views
 
-`LoadImage` per view, batch them (e.g. KJNodes' Image Batch Multi), batch the
-masks the same way, then Load Views → Run Multi-View → Export → Preview3D.
-Masks can come from whatever segmentation you use; every view needs one, since
-the MV-SAM3D loader skips views without a mask. All views must show the same
-object.
+`example_workflows/mvsam3d_custom_views_upscaled.json` is a ready-made 4-view
+graph: each view goes through a RealESRGAN ×4 upscale, the foreground mask is
+taken from the image's alpha channel and scaled to match, and everything is
+batched into Load Views → Run Multi-View → Export → Preview3D. Swap the four
+`LoadImage` filenames for your own. If your images have no alpha, feed masks
+from whatever segmentation you use into the mask chain instead — every view
+needs one, since the MV-SAM3D loader skips views without a mask. All views must
+show the same object, and view order is batch order (reference view first).
+The graph uses core nodes only; the upscaler model is
+`RealESRGAN_x4plus.pth` in `models/upscale_models/` (or substitute any
+upscaler, or bypass those nodes).
 
 ### Weighting
 
