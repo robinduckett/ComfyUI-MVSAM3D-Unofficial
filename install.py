@@ -37,6 +37,22 @@ def main() -> None:
               "explain how to fix this on first use; or run "
               "'python scripts/setup_env.py' manually.")
 
+    # Tell the user NOW (not at first queue) if the prerequisite is missing.
+    try:
+        setup_env.resolve_pixi_python("")
+        print("[MV-SAM3D] prerequisite check: sam3dobjects-nodes env found.")
+    except Exception:
+        print(
+            "[MV-SAM3D] " + "=" * 64 + "\n"
+            "[MV-SAM3D] PREREQUISITE MISSING: the 'sam3dobjects-nodes' environment\n"
+            "[MV-SAM3D] was not found. This pack is an add-on to ComfyUI-SAM3DObjects\n"
+            "[MV-SAM3D] and reuses its environment and model weights.\n"
+            "[MV-SAM3D]   1. Install ComfyUI-SAM3DObjects and generate one mesh with it.\n"
+            "[MV-SAM3D]   2. Run: python scripts/setup_env.py   (in this pack's folder)\n"
+            "[MV-SAM3D] Until then the MV-SAM3D nodes will error with these same steps.\n"
+            "[MV-SAM3D] " + "=" * 64
+        )
+
 
 if __name__ == "__main__":
     main()
