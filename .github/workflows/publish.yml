@@ -1,0 +1,31 @@
+name: Publish to ComfyUI Registry
+
+# Publishes when the version in pyproject.toml changes on main (or manually).
+#
+# IMPORTANT: publishing MUST happen from CI, not from a local working tree.
+# actions/checkout does NOT initialize submodules, so the packed artifact
+# contains only the vendor/MV-SAM3D gitlink — never the SAM-licensed code
+# itself. Publishing locally with an initialized submodule would bake Meta
+# SAM-licensed material into the registry zip.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["pyproject.toml"]
+
+permissions:
+  issues: write
+
+jobs:
+  publish-node:
+    name: Publish Custom Node to registry
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'robinduckett' }}
+    steps:
+      - name: Check out code (no submodules — deliberate, see header comment)
+        uses: actions/checkout@v4
+      - name: Publish Custom Node
+        uses: Comfy-Org/publish-node-action@v1
+        with:
+          personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}

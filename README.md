@@ -27,6 +27,17 @@ not by Meta; all method credit is theirs.
 
 ## Install
 
+**Via ComfyUI Manager / the registry:** install the pack, then run the one-time
+env setup (the install hook fetches the pinned MV-SAM3D repo automatically; the
+pixi-env extras need a terminal once):
+
+```bash
+cd ComfyUI/custom_nodes/ComfyUI-MVSAM3D-Unofficial
+python scripts/setup_env.py
+```
+
+**Via git:**
+
 ```bash
 cd ComfyUI/custom_nodes
 git clone --recursive https://github.com/robinduckett/ComfyUI-MVSAM3D-Unofficial.git
